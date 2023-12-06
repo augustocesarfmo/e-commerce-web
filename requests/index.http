@@ -1,0 +1,32 @@
+// Listando os dados
+GET http://192.168.68.154:3000/produtos
+
+###
+
+// Recuperando um registro específico
+GET http://192.168.68.154:3000/produtos/1
+
+###
+
+// Criando um novo registro
+POST http://192.168.68.154:3000/produtos
+content-type: application/json
+
+{
+  "nome": "Melancia"
+}
+
+###
+
+// Atualizando um registro específico
+PUT http://192.168.68.154:3000/produtos/173
+content-type: application/json
+
+{
+  "nome": "Recife/PE"
+}
+
+###
+
+// Deletando um registro específico
+DELETE http://192.168.68.154:3000/produtos/172
