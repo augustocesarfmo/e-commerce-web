@@ -7,6 +7,7 @@ const initialItens = [
 ];
 
 export default function Home() {
+  const [textInput, setTextInput] = useState("");
   const [itens, setItens] = useState(initialItens);
 
   async function handleClick() {
@@ -16,8 +17,21 @@ export default function Home() {
     console.log(produtos);
   }
 
+  function handleAddItem() {
+    console.log(textInput);
+    console.log("Adicionando um novo item");
+  }
+
   return (
     <main>
+      <div style={{ marginBottom: 10 }}>
+        <input
+          onChange={(e) => setTextInput(e.target.value)}
+          placeholder="Digite o seu texto aqui..."
+        />
+        <button onClick={handleAddItem}>Enviar</button>
+      </div>
+
       <button onClick={handleClick}>Buscar informação no servidor</button>
 
       <ul>
