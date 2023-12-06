@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { api } from "../../services/api";
 
 const initialItens = [
   { id: 1, nome: "Banana" },
@@ -11,15 +12,34 @@ export default function Home() {
   const [itens, setItens] = useState(initialItens);
 
   async function handleClick() {
-    const response = await fetch("http://192.168.68.154:3000/produtos");
-    const produtos = await response.json();
-    setItens(produtos);
-    console.log(produtos);
+    const response = await api.get("/produtos");
+    console.log(response);
+    setItens(response.data);
+
+    // const response = await fetch("http://192.168.68.154:3000/produtos");
+    // const produtos = await response.json();
+    // console.log(produtos);
   }
 
-  function handleAddItem() {
-    console.log(textInput);
-    console.log("Adicionando um novo item");
+  async function handleAddItem() {
+    // console.log(textInput);
+    const data = { nome: textInput };
+
+    try {
+      const response = await fetch("http://192.168.68.154:3000/produtos", {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      console.log("Success:", result);
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Ocorreu um erro");
+    }
   }
 
   return (
