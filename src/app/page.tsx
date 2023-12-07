@@ -1,44 +1,37 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 
-const initialItens = [
-  { id: 1, nome: "Banana" },
-  { id: 2, nome: "Uva" },
-];
+interface Product {
+  id: number;
+  nome: string;
+}
 
 export default function Home() {
   const [textInput, setTextInput] = useState("");
-  const [itens, setItens] = useState(initialItens);
+  const [itens, setItens] = useState<Product[]>([]);
 
-  async function handleClick() {
+  // Quando a tela for carregada, execute.
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  async function loadProducts() {
     const response = await api.get("/produtos");
-    console.log(response);
+    console.log("Success:", response);
     setItens(response.data);
-
-    // const response = await fetch("http://192.168.68.154:3000/produtos");
-    // const produtos = await response.json();
-    // console.log(produtos);
   }
 
   async function handleAddItem() {
-    // console.log(textInput);
     const data = { nome: textInput };
 
     try {
-      const response = await fetch("http://192.168.68.154:3000/produtos", {
-        method: "POST", // or 'PUT'
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-      console.log("Success:", result);
+      const response = await api.post("/produtos", data);
+      loadProducts();
+      console.log("Success:", response);
     } catch (error) {
-      console.error("Error:", error);
-      alert("Ocorreu um erro");
+      console.log("Error:", error);
+      alert("Ocorreu um erro ao tentar se conectar com o servidor.");
     }
   }
 
@@ -51,8 +44,6 @@ export default function Home() {
         />
         <button onClick={handleAddItem}>Enviar</button>
       </div>
-
-      <button onClick={handleClick}>Buscar informação no servidor</button>
 
       <ul>
         {itens.map((item) => (
