@@ -2,7 +2,8 @@
 import {useEffect, useState} from "react"
 
 import { api } from "../../services/api";
-import { Console } from "console";
+import { Console, log } from "console";
+import { resolve } from "path";
 
 interface Product {
   id: number,
@@ -11,26 +12,37 @@ interface Product {
 const initialItens: Product[] = [];
 
 export default function Home() {
+const [loadind, setLoading] = useState(false)
   const [textInput, setTextInput] = useState("");
-  const [itens, setItens] = useState <Product[]>([]);
+  const [items, setItems] = useState <Product[]>([]);
 
 
   //quando a tela for carregada execute 
   useEffect(() => {
-    loadProducts();
+    loadItems();
   }, [])
 
-  useEffect(() => {
+   useEffect(() => {
     console.log("Mudança",textInput);
-  }, [textInput]);
-  async function loadProducts() { //o axios quem criou
-    const response = await api.get("/produtos");
-    console.log("Sucess:", response);
-    setItens(response.data);
+  }, [textInput]); 
 
-    // const response = await fetch("http://192.168.68.154:3000/produtos");
-    // const produtos = await response.json(); esse código faz a mesma coisa do de cima que é um a biblioteca axios
-    // console.log(produtos);
+  async function loadItems() { //o axios quem criou
+    if (loadind == true) return;
+    setLoading(true)
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    try {
+      const response = await api.get("/produtos");
+      console.log("Sucess:", response);
+      setItems(response.data);
+      
+    } catch (error) {
+      console.log("Error:", error);
+      alert("ocorreu um erro ao tentar se conectar com o servidor")
+      
+    } finally{
+      setLoading(false)
+    }
+
   }
 
   async function handleAddItem() {
@@ -39,31 +51,27 @@ export default function Home() {
 
     try {
       const response = await api.post("/produtos", data);
-      loadProducts();
+      loadItems();
       console.log("Sucess:", response);
       
     } catch (error) {
       console.log("Error:", error);
       alert("ocorreu um erro ao tentar se conectar com o servidor")
     }
-      
-    
-
-    /**try {
-      const response = await fetch("http://192.168.68.154:3000/produtos", {
-        method: "POST", // or 'PUT'
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-      console.log("Success:", result);
+  }
+  async function handleDeleteItem(itemId: number){
+    console.log(itemId);
+    try {
+      await api.delete(`/produtos/${itemId}`)
+      const filteredItems = items.filter((item) => {
+        item.id != itemId
+      })
+      setItems(filteredItems)
+     
     } catch (error) {
-      console.error("Error:", error);
-      alert("Ocorreu um erro");
-    }**/
+      console.log("Error:", error);
+      alert("ocorreu um erro ao tentar se conectar com o servidor")
+    }
   }
 
   return (
@@ -77,10 +85,14 @@ export default function Home() {
         
         <button onClick={handleAddItem}>Enviar</button>
       </div>
+      { loadind && <p>Carregando...</p>}
 
       <ul>
-        {itens.map((item) => (
-          <li key={item.id}>{item.nome}</li>
+        {items.map((item) => (
+          <li key={item.id}>
+            {item.nome}
+            <button onClick={() => handleDeleteItem(item.id)}>Deletar</button>
+            </li>
         ))}
       </ul>
     </main>
