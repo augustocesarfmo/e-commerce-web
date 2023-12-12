@@ -8,30 +8,53 @@ interface Product {
 }
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
   const [textInput, setTextInput] = useState("");
-  const [itens, setItens] = useState<Product[]>([]);
+  const [items, setItems] = useState<Product[]>([]);
+
+  async function loadItems() {
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    try {
+      const response = await api.get("/produtos");
+      setItems(response.data);
+      console.log("Success:", response);
+    } catch (error) {
+      console.log("Error:", error);
+      alert("Ocorreu um erro ao tentar se conectar com o servidor.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   // Quando a tela for carregada, execute.
   useEffect(() => {
-    loadProducts();
+    loadItems();
   }, []);
-
-  async function loadProducts() {
-    const response = await api.get("/produtos");
-    console.log("Success:", response);
-    setItens(response.data);
-  }
 
   async function handleAddItem() {
     const data = { nome: textInput };
 
     try {
       const response = await api.post("/produtos", data);
-      loadProducts();
+      loadItems();
       console.log("Success:", response);
     } catch (error) {
       console.log("Error:", error);
-      alert("Ocorreu um erro ao tentar se conectar com o servidor.");
+    }
+  }
+
+  async function handleDeleteItem(itemId: number) {
+    console.log(itemId);
+
+    try {
+      await api.delete(`/produtos/${itemId}`);
+
+      const filteredItems = items.filter((item) => item.id !== itemId);
+      setItems(filteredItems);
+    } catch (error) {
+      console.log("Error:", error);
     }
   }
 
@@ -45,9 +68,14 @@ export default function Home() {
         <button onClick={handleAddItem}>Enviar</button>
       </div>
 
+      {loading && <p>Carregando...</p>}
+
       <ul>
-        {itens.map((item) => (
-          <li key={item.id}>{item.nome}</li>
+        {items.map((item) => (
+          <li key={item.id}>
+            {item.nome}
+            <button onClick={() => handleDeleteItem(item.id)}>Deletar</button>
+          </li>
         ))}
       </ul>
     </main>
