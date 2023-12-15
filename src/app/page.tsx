@@ -1,44 +1,76 @@
 "use client";
-import { useState } from "react";
-import { api } from "../../services/api";
+import {useEffect, useState} from "react"
 
-const initialItens = [
-  { id: 1, nome: "Banana" },
-  { id: 2, nome: "Uva" },
-];
+import { api } from "../../services/api";
+import { Console, log } from "console";
+import { resolve } from "path";
+
+interface Product {
+  id: number,
+  nome: string;
+}
+const initialItens: Product[] = [];
 
 export default function Home() {
+const [loadind, setLoading] = useState(false)
   const [textInput, setTextInput] = useState("");
-  const [itens, setItens] = useState(initialItens);
+  const [items, setItems] = useState <Product[]>([]);
 
-  async function handleClick() {
-    const response = await api.get("/produtos");
-    console.log(response);
-    setItens(response.data);
 
-    // const response = await fetch("http://192.168.68.154:3000/produtos");
-    // const produtos = await response.json();
-    // console.log(produtos);
+  //quando a tela for carregada execute 
+  useEffect(() => {
+    loadItems();
+  }, [])
+
+   useEffect(() => {
+    console.log("Mudança",textInput);
+  }, [textInput]); 
+
+  async function loadItems() { //o axios quem criou
+    if (loadind == true) return;
+    setLoading(true)
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    try {
+      const response = await api.get("/produtos");
+      console.log("Sucess:", response);
+      setItems(response.data);
+      
+    } catch (error) {
+      console.log("Error:", error);
+      alert("ocorreu um erro ao tentar se conectar com o servidor")
+      
+    } finally{
+      setLoading(false)
+    }
+
   }
 
   async function handleAddItem() {
-    // console.log(textInput);
     const data = { nome: textInput };
 
-    try {
-      const response = await fetch("http://192.168.68.154:3000/produtos", {
-        method: "POST", // or 'PUT'
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
 
-      const result = await response.json();
-      console.log("Success:", result);
+    try {
+      const response = await api.post("/produtos", data);
+      loadItems();
+      console.log("Sucess:", response);
+      
     } catch (error) {
-      console.error("Error:", error);
-      alert("Ocorreu um erro");
+      console.log("Error:", error);
+      alert("ocorreu um erro ao tentar se conectar com o servidor")
+    }
+  }
+  async function handleDeleteItem(itemId: number){
+    console.log(itemId);
+    try {
+      await api.delete(`/produtos/${itemId}`)
+      const filteredItems = items.filter((item) => {
+        item.id != itemId
+      })
+      setItems(filteredItems)
+     
+    } catch (error) {
+      console.log("Error:", error);
+      alert("ocorreu um erro ao tentar se conectar com o servidor")
     }
   }
 
@@ -49,14 +81,18 @@ export default function Home() {
           onChange={(e) => setTextInput(e.target.value)}
           placeholder="Digite o seu texto aqui..."
         />
+       
+        
         <button onClick={handleAddItem}>Enviar</button>
       </div>
-
-      <button onClick={handleClick}>Buscar informação no servidor</button>
+      { loadind && <p>Carregando...</p>}
 
       <ul>
-        {itens.map((item) => (
-          <li key={item.id}>{item.nome}</li>
+        {items.map((item) => (
+          <li key={item.id}>
+            {item.nome}
+            <button onClick={() => handleDeleteItem(item.id)}>Deletar</button>
+            </li>
         ))}
       </ul>
     </main>
