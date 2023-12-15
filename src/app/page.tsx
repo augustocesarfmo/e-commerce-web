@@ -1,6 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { Button, Skeleton } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
+import Image from "next/image";
 
 interface Product {
   id: number;
@@ -88,22 +91,45 @@ export default function Home() {
   }
 
   return (
-    <main>
-      <div style={{ marginBottom: 10 }}>
-        <input
+    <div className="flex flex-col gap-5 mt-5">
+      <Image
+        alt="Img background"
+        src="/images/img-background.jpg"
+        width={150}
+        height={0}
+      />
+
+      <div className="flex items-center">
+        <Input
           onChange={(e) => setTextInput(e.target.value)}
           placeholder="Digite o seu texto aqui..."
         />
-        <button onClick={handleAddItem}>Enviar</button>
+        <Button color="primary" onClick={handleAddItem}>
+          Enviar
+        </Button>
       </div>
 
-      {loading && <p>Carregando...</p>}
+      {/* {loading && <p>Carregando...</p>} */}
+
+      {loading && (
+        <div className="space-y-3">
+          <Skeleton className="w-3/5 rounded-lg">
+            <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
+          </Skeleton>
+          <Skeleton className="w-4/5 rounded-lg">
+            <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
+          </Skeleton>
+          <Skeleton className="w-2/5 rounded-lg">
+            <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
+          </Skeleton>
+        </div>
+      )}
 
       <ul>
         {items.map((item) => (
           <li key={item.id}>
             {item.isEditing ? (
-              <input
+              <Input
                 value={item.nome}
                 onChange={(e) => handleChangeItem(item.id, e.target.value)}
               />
@@ -118,6 +144,6 @@ export default function Home() {
           </li>
         ))}
       </ul>
-    </main>
+    </div>
   );
 }
