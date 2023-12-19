@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Button, Skeleton } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
-import Image from "next/image";
+import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import { BsCart3 } from "react-icons/bs";
 
 interface Product {
   id: number;
-  nome: string;
+  title: string;
+  price: number;
   isEditing: boolean;
 }
 
@@ -38,7 +40,11 @@ export default function Home() {
   }, []);
 
   async function handleAddItem() {
-    const data: Omit<Product, "id"> = { nome: textInput, isEditing: false };
+    const data: Omit<Product, "id"> = {
+      title: textInput,
+      price: 10,
+      isEditing: false,
+    };
 
     try {
       const response = await api.post("/produtos", data);
@@ -91,15 +97,8 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col gap-5 mt-5">
-      <Image
-        alt="Img background"
-        src="/images/img-background.jpg"
-        width={150}
-        height={0}
-      />
-
-      <div className="flex items-center">
+    <div className="flex flex-col gap-5 mt-5 px-80">
+      <div className="flex items-center gap-3">
         <Input
           onChange={(e) => setTextInput(e.target.value)}
           placeholder="Digite o seu texto aqui..."
@@ -125,22 +124,42 @@ export default function Home() {
         </div>
       )}
 
-      <ul>
+      <ul className="grid grid-cols-[repeat(auto-fill,min(200px))] justify-between gap-5">
         {items.map((item) => (
           <li key={item.id}>
-            {item.isEditing ? (
-              <Input
-                value={item.nome}
-                onChange={(e) => handleChangeItem(item.id, e.target.value)}
-              />
-            ) : (
-              item.nome
-            )}
+            <Card
+              shadow="sm"
+              isPressable
+              onPress={() => console.log("item pressed")}
+            >
+              <CardBody className="overflow-visible p-0">
+                <Image
+                  shadow="sm"
+                  radius="lg"
+                  width="100%"
+                  alt={item.title}
+                  className="w-[200px] object-cover h-[140px]"
+                  src="https://picsum.photos/400/300"
+                />
+              </CardBody>
+              <CardFooter className="flex flex-col text-small gap-2">
+                <div className="flex w-full justify-between">
+                  <b>{item.title}</b>
+                  <p className="text-default-500">R$ {item.price}</p>
+                </div>
 
-            <button onClick={() => handleEditItem(item.id)}>
-              {item.isEditing ? "Save" : "Edit"}
-            </button>
-            <button onClick={() => handleDeleteItem(item.id)}>Deletar</button>
+                <Button
+                  startContent={<BsCart3 size={16} />}
+                  className="flex self-end"
+                  variant="bordered"
+                  color="primary"
+                  size="sm"
+                  onClick={() => console.log("teste")}
+                >
+                  Comprar
+                </Button>
+              </CardFooter>
+            </Card>
           </li>
         ))}
       </ul>

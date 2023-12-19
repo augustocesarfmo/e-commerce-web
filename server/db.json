@@ -1,64 +1,118 @@
 {
   "produtos": [
     {
-      "nome": "Rinaldo24",
+      "title": "Banana",
+      "price": 10,
       "isEditing": false,
       "id": 1
     },
     {
-      "nome": "ffdfd",
+      "title": "Café",
+      "price": 10,
       "isEditing": false,
       "id": 2
     },
     {
-      "nome": "ISaell MANOBRAs",
+      "title": "banana",
+      "price": 10,
       "isEditing": false,
       "id": 3
     },
     {
-      "nome": "emesson",
+      "title": "Chocolate",
+      "price": 10,
       "isEditing": false,
       "id": 4
     },
     {
-      "nome": "marcelo bonds",
+      "title": "maça",
+      "price": 10,
       "isEditing": false,
+      "id": 5
+    },
+    {
+      "title": "panetone",
+      "price": 10,
+      "isEditing": false,
+      "id": 6
+    },
+    {
+      "title": "uva",
+      "isEditing": false,
+      "price": 10,
       "id": 7
     },
     {
-      "nome": "lalala",
+      "title": "Cereal",
+      "price": 10,
       "isEditing": false,
       "id": 8
     },
     {
-      "nome": "EVERYONE",
+      "title": "Acelora",
+      "price": 10,
       "isEditing": false,
       "id": 9
     },
     {
-      "nome": "quem é everyone",
+      "title": "Tigirina",
+      "price": 10,
       "isEditing": false,
       "id": 10
     },
     {
-      "nome": "EVERYONE",
+      "title": "uva",
       "isEditing": false,
+      "price": 10,
       "id": 11
     },
     {
-      "nome": "EVERYONE",
+      "title": "peixe frito ",
+      "price": 10,
       "isEditing": false,
       "id": 12
     },
     {
-      "nome": "EVERYONE",
+      "title": "Morango",
+      "price": 10,
       "isEditing": false,
       "id": 13
     },
     {
-      "nome": "EVERYONE",
+      "title": "Redbull",
+      "price": 10,
       "isEditing": false,
       "id": 14
+    },
+    {
+      "title": "chester",
+      "price": 10,
+      "isEditing": false,
+      "id": 15
+    },
+    {
+      "title": "salpicão",
+      "price": 10,
+      "isEditing": false,
+      "id": 16
+    },
+    {
+      "title": "marmelo",
+      "price": 10,
+      "isEditing": false,
+      "id": 17
+    },
+    {
+      "title": "ta barato",
+      "price": 10,
+      "isEditing": false,
+      "id": 18
+    },
+    {
+      "title": "Vaquejada",
+      "price": 10,
+      "isEditing": false,
+      "id": 19
     }
   ]
 }
