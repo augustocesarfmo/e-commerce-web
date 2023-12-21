@@ -1,3 +1,9 @@
+"use client";
+import { ProductContext } from "@/contexts/ProductContext";
+import { useContext } from "react";
+
 export default function ProductsPage() {
-  return <p className="text-2xl">Página de produtos</p>;
+  const numProducts = useContext(ProductContext);
+
+  return <p className="text-2xl">Página de produtos: {numProducts}</p>;
 }

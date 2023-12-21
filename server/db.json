@@ -149,6 +149,12 @@
       "price": 10,
       "isEditing": false,
       "id": 25
+    },
+    {
+      "title": "açúcar",
+      "price": 10,
+      "isEditing": false,
+      "id": 26
     }
   ]
 }

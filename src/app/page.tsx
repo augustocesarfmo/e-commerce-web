@@ -1,10 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Button, Skeleton } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { BsCart3 } from "react-icons/bs";
+
+import { ProductContext } from "@/contexts/ProductContext";
 
 interface Product {
   id: number;
@@ -17,6 +19,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [textInput, setTextInput] = useState("");
   const [items, setItems] = useState<Product[]>([]);
+
+  const numProducts = useContext(ProductContext);
 
   async function loadItems() {
     setLoading(true);
@@ -98,6 +102,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-5 mt-5 px-80">
+      <p>Número de produtos: {numProducts}</p>
+
       <div className="flex items-center gap-3">
         <Input
           onChange={(e) => setTextInput(e.target.value)}
