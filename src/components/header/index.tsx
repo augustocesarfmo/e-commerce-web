@@ -6,20 +6,19 @@ import {
   NavbarItem,
   Link,
   Badge,
+  Button,
 } from "@nextui-org/react";
 import { BsCart3 } from "react-icons/bs";
-import { useContext } from "react";
-import { ProductContext } from "@/contexts/ProductContext";
+import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 
 const links = [
   { name: "Início", href: "/" },
   { name: "Produtos", href: "/produtos" },
-  { name: "Sobre", href: "/sobre" },
 ];
 
 export function Header() {
   const pathname = usePathname();
-  const numProducts = useContext(ProductContext);
+  const products = useShoppingCart();
 
   return (
     <Navbar position="static" isBordered>
@@ -33,9 +32,17 @@ export function Header() {
         ))}
       </NavbarContent>
 
-      <Badge color="primary" content={numProducts} shape="circle">
-        <BsCart3 size={30} />
-      </Badge>
+      <Button
+        href="/produtos"
+        isIconOnly
+        className="bg-transparent"
+        radius="none"
+        as={Link}
+      >
+        <Badge color="primary" content={products.length} shape="circle">
+          <BsCart3 size={30} />
+        </Badge>
+      </Button>
     </Navbar>
   );
 }

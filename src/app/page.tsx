@@ -1,26 +1,18 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Button, Skeleton } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { BsCart3 } from "react-icons/bs";
-
-import { ProductContext } from "@/contexts/ProductContext";
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  isEditing: boolean;
-}
+import { Product } from "@/types";
+import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [textInput, setTextInput] = useState("");
   const [items, setItems] = useState<Product[]>([]);
-
-  const numProducts = useContext(ProductContext);
+  const products = useShoppingCart();
 
   async function loadItems() {
     setLoading(true);
@@ -43,75 +35,14 @@ export default function Home() {
     loadItems();
   }, []);
 
-  async function handleAddItem() {
-    const data: Omit<Product, "id"> = {
-      title: textInput,
-      price: 10,
-      isEditing: false,
-    };
-
-    try {
-      const response = await api.post("/produtos", data);
-      loadItems();
-      console.log("Success:", response);
-    } catch (error) {
-      console.log("Error:", error);
-    }
-  }
-
-  async function handleDeleteItem(itemId: number) {
-    console.log(itemId);
-
-    try {
-      await api.delete(`/produtos/${itemId}`);
-
-      const filteredItems = items.filter((item) => item.id !== itemId);
-      setItems(filteredItems);
-    } catch (error) {
-      console.log("Error:", error);
-    }
-  }
-
-  async function handleEditItem(itemId: number) {
-    let tempItem: any;
-
-    const result = items.map((item) => {
-      if (item.id === itemId) {
-        const updatedItem = { ...item, isEditing: !item.isEditing };
-        tempItem = updatedItem;
-
-        return updatedItem;
-      }
-      return item;
-    });
-
-    setItems(result);
-    if (!tempItem.isEditing) await api.put(`/produtos/${itemId}`, tempItem);
-  }
-
-  function handleChangeItem(itemId: number, textValue: string) {
-    const result = items.map((item) => {
-      if (item.id === itemId) {
-        return { ...item, nome: textValue };
-      }
-      return item;
-    });
-
-    setItems(result);
-  }
-
   return (
     <div className="flex flex-col gap-5 mt-5 px-80">
-      <p>Número de produtos: {numProducts}</p>
-
       <div className="flex items-center gap-3">
         <Input
           onChange={(e) => setTextInput(e.target.value)}
           placeholder="Digite o seu texto aqui..."
         />
-        <Button color="primary" onClick={handleAddItem}>
-          Enviar
-        </Button>
+        <Button color="primary">Enviar</Button>
       </div>
 
       {/* {loading && <p>Carregando...</p>} */}

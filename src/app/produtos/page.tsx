@@ -1,9 +1,16 @@
 "use client";
-import { ProductContext } from "@/contexts/ProductContext";
-import { useContext } from "react";
+import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 
 export default function ProductsPage() {
-  const numProducts = useContext(ProductContext);
+  const products = useShoppingCart();
 
-  return <p className="text-2xl">Página de produtos: {numProducts}</p>;
+  return (
+    <div className="px-10 py-4">
+      <ul>
+        {products.map((item) => (
+          <li key={item.id}>{item.title}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
