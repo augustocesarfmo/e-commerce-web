@@ -6,13 +6,17 @@ import { Input } from "@nextui-org/react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { BsCart3 } from "react-icons/bs";
 import { Product } from "@/types";
-import { useShoppingCart } from "@/contexts/ShoppingCartContext";
+import {
+  useShoppingCart,
+  useShoppingCartDispatch,
+} from "@/contexts/ShoppingCartContext";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [textInput, setTextInput] = useState("");
   const [items, setItems] = useState<Product[]>([]);
   const products = useShoppingCart();
+  const dispatch = useShoppingCartDispatch();
 
   async function loadItems() {
     setLoading(true);
@@ -21,7 +25,7 @@ export default function Home() {
     try {
       const response = await api.get("/produtos");
       setItems(response.data);
-      console.log("Success:", response);
+      // console.log("Success:", response);
     } catch (error) {
       console.log("Error:", error);
       alert("Ocorreu um erro ao tentar se conectar com o servidor.");
@@ -91,7 +95,12 @@ export default function Home() {
                   variant="bordered"
                   color="primary"
                   size="sm"
-                  onClick={() => console.log("teste")}
+                  onClick={() => {
+                    dispatch({
+                      type: "added",
+                      ...item,
+                    });
+                  }}
                 >
                   Comprar
                 </Button>

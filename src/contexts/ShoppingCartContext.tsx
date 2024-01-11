@@ -1,17 +1,39 @@
 "use client";
 import { Product } from "@/types";
-import { createContext, useContext } from "react";
+import {
+  Dispatch,
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
 
 const ShoppingCartContext = createContext<Product[]>([]);
+const ShoppingCartDispatchContext = createContext<Dispatch<Action>>(() => {});
 
 interface ShoppingCartProviderProps {
   children: React.ReactNode;
 }
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
+  const [products, dispatch] = useReducer(shoppingCartReducer, initialData);
+
+  useEffect(() => {
+    localStorage.setItem("@localShoppingCart", JSON.stringify(products));
+  }, [products]);
+
+  useEffect(() => {
+    const result = JSON.parse(
+      localStorage.getItem("@localShoppingCart") || "[]"
+    );
+    console.log(result);
+  }, []);
+
   return (
-    <ShoppingCartContext.Provider value={initialData}>
-      {children}
+    <ShoppingCartContext.Provider value={products}>
+      <ShoppingCartDispatchContext.Provider value={dispatch}>
+        {children}
+      </ShoppingCartDispatchContext.Provider>
     </ShoppingCartContext.Provider>
   );
 }
@@ -20,9 +42,25 @@ export function useShoppingCart() {
   return useContext(ShoppingCartContext);
 }
 
-const initialData: Product[] = [
-  { id: 0, title: "Banana", price: 5 },
-  { id: 1, title: "Uva", price: 2 },
-  { id: 2, title: "Melão", price: 10 },
-  { id: 3, title: "Cuscuz", price: 7 },
-];
+export function useShoppingCartDispatch() {
+  return useContext(ShoppingCartDispatchContext);
+}
+
+interface Action extends Product {
+  type: "added";
+}
+
+function shoppingCartReducer(products: Product[], action: Action): Product[] {
+  switch (action.type) {
+    case "added":
+      return [
+        ...products,
+        { id: action.id, title: action.title, price: action.price },
+      ];
+
+    default:
+      throw Error("Unknown action: " + action.type);
+  }
+}
+
+const initialData: Product[] = [];
