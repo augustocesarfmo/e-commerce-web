@@ -22,13 +22,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     localStorage.setItem("@localShoppingCart", JSON.stringify(products));
   }, [products]);
 
-  useEffect(() => {
-    const result = JSON.parse(
-      localStorage.getItem("@localShoppingCart") || "[]"
-    );
-    console.log(result);
-  }, []);
-
   return (
     <ShoppingCartContext.Provider value={products}>
       <ShoppingCartDispatchContext.Provider value={dispatch}>
@@ -47,7 +40,7 @@ export function useShoppingCartDispatch() {
 }
 
 interface Action extends Product {
-  type: "added";
+  type: "added" | "deleted";
 }
 
 function shoppingCartReducer(products: Product[], action: Action): Product[] {
@@ -57,10 +50,15 @@ function shoppingCartReducer(products: Product[], action: Action): Product[] {
         ...products,
         { id: action.id, title: action.title, price: action.price },
       ];
+    case "deleted": {
+      return products.filter((p) => p.id !== action.id);
+    }
 
     default:
       throw Error("Unknown action: " + action.type);
   }
 }
 
-const initialData: Product[] = [];
+const initialData: Product[] = JSON.parse(
+  localStorage.getItem("@localShoppingCart") || "[]"
+);
