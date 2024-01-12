@@ -15,12 +15,11 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [textInput, setTextInput] = useState("");
   const [items, setItems] = useState<Product[]>([]);
-  const products = useShoppingCart();
   const dispatch = useShoppingCartDispatch();
 
   async function loadItems() {
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     try {
       const response = await api.get("/produtos");
@@ -28,13 +27,12 @@ export default function Home() {
       // console.log("Success:", response);
     } catch (error) {
       console.log("Error:", error);
-      alert("Ocorreu um erro ao tentar se conectar com o servidor.");
+      alert("Ocorreu um erro ao tentar se conectar com o servidor");
     } finally {
       setLoading(false);
     }
   }
 
-  // Quando a tela for carregada, execute.
   useEffect(() => {
     loadItems();
   }, []);
@@ -48,8 +46,6 @@ export default function Home() {
         />
         <Button color="primary">Enviar</Button>
       </div>
-
-      {/* {loading && <p>Carregando...</p>} */}
 
       {loading && (
         <div className="space-y-3">

@@ -1,5 +1,5 @@
 "use client";
-import { Product } from "@/types";
+import dynamic from "next/dynamic";
 import {
   Dispatch,
   createContext,
@@ -7,6 +7,12 @@ import {
   useEffect,
   useReducer,
 } from "react";
+
+import { Product } from "@/types";
+import {
+  getDataFromLocalStorage,
+  saveDataToLocalStorage,
+} from "../../services/localStorageService";
 
 const ShoppingCartContext = createContext<Product[]>([]);
 const ShoppingCartDispatchContext = createContext<Dispatch<Action>>(() => {});
@@ -16,10 +22,13 @@ interface ShoppingCartProviderProps {
 }
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
-  const [products, dispatch] = useReducer(shoppingCartReducer, initialData);
+  const [products, dispatch] = useReducer(
+    shoppingCartReducer,
+    getDataFromLocalStorage("products")
+  );
 
   useEffect(() => {
-    localStorage.setItem("@localShoppingCart", JSON.stringify(products));
+    saveDataToLocalStorage("products", products);
   }, [products]);
 
   return (
@@ -59,6 +68,10 @@ function shoppingCartReducer(products: Product[], action: Action): Product[] {
   }
 }
 
-const initialData: Product[] = JSON.parse(
-  localStorage.getItem("@localShoppingCart") || "[]"
+// required for localStorage to work
+export const DynamicShoppingCartProvider = dynamic(
+  () => import("./ShoppingCartContext").then((mod) => mod.ShoppingCartProvider),
+  {
+    ssr: false,
+  }
 );

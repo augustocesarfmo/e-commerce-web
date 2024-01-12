@@ -13,7 +13,7 @@ import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 
 const links = [
   { name: "Início", href: "/" },
-  { name: "Produtos", href: "/produtos" },
+  { name: "Carrinho de compras", href: "/shopping-cart" },
 ];
 
 export function Header() {
