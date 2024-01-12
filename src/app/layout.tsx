@@ -21,7 +21,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <DynamicShoppingCartProvider>
           <Header />
-          <main>{children}</main>
+          <main className="py-6 px-4 lg:px-80 flex justify-center lg:justify-normal lg:block">
+            {children}
+          </main>
         </DynamicShoppingCartProvider>
       </body>
     </html>

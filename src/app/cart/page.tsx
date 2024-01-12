@@ -6,16 +6,18 @@ import {
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { BsTrash3 } from "react-icons/bs";
 import { Button } from "@nextui-org/react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ProductsPage() {
   const products = useShoppingCart();
   const dispatch = useShoppingCartDispatch();
 
   return (
-    <div className="px-10 py-4">
+    <>
+      <h2 className="text-2xl pb-4">Meu carrinho</h2>
       <ul className="grid grid-cols-[repeat(auto-fill,min(200px))] justify-between gap-5">
         {products.map((item) => (
-          <li key={item.id}>
+          <li key={uuidv4()}>
             <Card
               shadow="sm"
               isPressable
@@ -57,6 +59,6 @@ export default function ProductsPage() {
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 }

@@ -2,18 +2,13 @@
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { Button, Skeleton } from "@nextui-org/react";
-import { Input } from "@nextui-org/react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { BsCart3 } from "react-icons/bs";
 import { Product } from "@/types";
-import {
-  useShoppingCart,
-  useShoppingCartDispatch,
-} from "@/contexts/ShoppingCartContext";
+import { useShoppingCartDispatch } from "@/contexts/ShoppingCartContext";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
-  const [textInput, setTextInput] = useState("");
   const [items, setItems] = useState<Product[]>([]);
   const dispatch = useShoppingCartDispatch();
 
@@ -38,26 +33,24 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-5 mt-5 px-80">
-      <div className="flex items-center gap-3">
-        <Input
-          onChange={(e) => setTextInput(e.target.value)}
-          placeholder="Digite o seu texto aqui..."
-        />
-        <Button color="primary">Enviar</Button>
-      </div>
-
+    <div>
+      <h2 className="text-2xl pb-4">Produtos</h2>
       {loading && (
         <div className="space-y-3">
-          <Skeleton className="w-3/5 rounded-lg">
-            <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
+          <Skeleton className="rounded-lg">
+            <div className="h-24 rounded-lg bg-default-300"></div>
           </Skeleton>
-          <Skeleton className="w-4/5 rounded-lg">
-            <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
-          </Skeleton>
-          <Skeleton className="w-2/5 rounded-lg">
-            <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
-          </Skeleton>
+          <div className="space-y-3">
+            <Skeleton className="w-3/5 rounded-lg">
+              <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
+            </Skeleton>
+            <Skeleton className="w-4/5 rounded-lg">
+              <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
+            </Skeleton>
+            <Skeleton className="w-2/5 rounded-lg">
+              <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
+            </Skeleton>
+          </div>
         </div>
       )}
 

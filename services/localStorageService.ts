@@ -17,6 +17,6 @@ export const getDataFromLocalStorage = (key: KeyStrings) => {
   );
 };
 
-export const removeDataFromLocalStorage = (key) => {
-  // Lógica para remover dados do localStorage
-};
+// export const removeDataFromLocalStorage = (key) => {
+//   // Lógica para remover dados do localStorage
+// };

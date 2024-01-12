@@ -7,42 +7,66 @@ import {
   Link,
   Badge,
   Button,
+  NavbarBrand,
+  Input,
 } from "@nextui-org/react";
-import { BsCart3 } from "react-icons/bs";
+import { BsCart3, BsSearch } from "react-icons/bs";
 import { useShoppingCart } from "@/contexts/ShoppingCartContext";
 
 const links = [
   { name: "Início", href: "/" },
-  { name: "Carrinho de compras", href: "/shopping-cart" },
+  { name: "Meu carrinho", href: "/cart" },
 ];
 
 export function Header() {
-  const pathname = usePathname();
   const products = useShoppingCart();
 
   return (
     <Navbar position="static" isBordered>
-      <NavbarContent className="flex gap-4 w-full" justify="center">
-        {links.map((item, index) => (
-          <NavbarItem key={index} isActive={item.href === pathname}>
-            <Link color="foreground" href={item.href}>
-              {item.name}
-            </Link>
-          </NavbarItem>
-        ))}
+      <NavbarContent justify="start">
+        <Button
+          href="/"
+          isIconOnly
+          className="bg-transparent w-full h-full"
+          radius="none"
+          as={Link}
+        >
+          <NavbarBrand>
+            <p className="hidden sm:block font-bold text-inherit">
+              LOJA VIRTUAL
+            </p>
+          </NavbarBrand>
+        </Button>
       </NavbarContent>
 
-      <Button
-        href="/produtos"
-        isIconOnly
-        className="bg-transparent"
-        radius="none"
-        as={Link}
-      >
-        <Badge color="primary" content={products.length} shape="circle">
-          <BsCart3 size={30} />
-        </Badge>
-      </Button>
+      <NavbarContent className="flex gap-4 w-full mx-12" justify="center">
+        <Input
+          classNames={{
+            mainWrapper: "h-full",
+            input: "text-small",
+            inputWrapper:
+              "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+          }}
+          placeholder="Type to search..."
+          size="sm"
+          startContent={<BsSearch size={16} />}
+          type="search"
+        />
+      </NavbarContent>
+
+      <NavbarContent justify="end">
+        <Button
+          href="/cart"
+          isIconOnly
+          className="bg-transparent h-full w-unit-13"
+          radius="none"
+          as={Link}
+        >
+          <Badge color="primary" content={products.length} shape="circle">
+            <BsCart3 size={30} />
+          </Badge>
+        </Button>
+      </NavbarContent>
     </Navbar>
   );
 }
