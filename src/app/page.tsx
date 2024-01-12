@@ -6,6 +6,7 @@ import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { BsCart3 } from "react-icons/bs";
 import { Product } from "@/types";
 import { useShoppingCartDispatch } from "@/contexts/ShoppingCartContext";
+import { formatCurrency } from "@/utils";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -75,7 +76,9 @@ export default function Home() {
               <CardFooter className="flex flex-col text-small gap-2">
                 <div className="flex w-full justify-between">
                   <b>{item.title}</b>
-                  <p className="text-default-500">R$ {item.price}</p>
+                  <p className="text-default-500">
+                    {formatCurrency(item.price)}
+                  </p>
                 </div>
 
                 <Button

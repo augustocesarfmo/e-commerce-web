@@ -1,178 +1,74 @@
 {
   "produtos": [
     {
+      "id": 0,
+      "title": "Maçã",
+      "price": 2.49
+    },
+    {
+      "id": 1,
       "title": "Banana",
-      "price": 10,
-      "isEditing": false,
-      "id": 1
+      "price": 1.99
     },
     {
-      "title": "Café",
-      "price": 10,
-      "isEditing": false,
-      "id": 2
-    },
-    {
-      "title": "banana",
-      "price": 10,
-      "isEditing": false,
-      "id": 3
-    },
-    {
-      "title": "Chocolate",
-      "price": 10,
-      "isEditing": false,
-      "id": 4
-    },
-    {
-      "title": "maça",
-      "price": 10,
-      "isEditing": false,
-      "id": 5
-    },
-    {
-      "title": "panetone",
-      "price": 10,
-      "isEditing": false,
-      "id": 6
-    },
-    {
-      "title": "uva",
-      "isEditing": false,
-      "price": 10,
-      "id": 7
-    },
-    {
-      "title": "Cereal",
-      "price": 10,
-      "isEditing": false,
-      "id": 8
-    },
-    {
-      "title": "Acelora",
-      "price": 10,
-      "isEditing": false,
-      "id": 9
-    },
-    {
-      "title": "Tigirina",
-      "price": 10,
-      "isEditing": false,
-      "id": 10
-    },
-    {
-      "title": "uva",
-      "isEditing": false,
-      "price": 10,
-      "id": 11
-    },
-    {
-      "title": "peixe frito ",
-      "price": 10,
-      "isEditing": false,
-      "id": 12
-    },
-    {
+      "id": 2,
       "title": "Morango",
-      "price": 10,
-      "isEditing": false,
-      "id": 13
+      "price": 3.99
     },
     {
-      "title": "Redbull",
-      "price": 10,
-      "isEditing": false,
-      "id": 14
+      "id": 3,
+      "title": "Uva",
+      "price": 4.49
     },
     {
-      "title": "chester",
-      "price": 10,
-      "isEditing": false,
-      "id": 15
+      "id": 4,
+      "title": "Abacaxi",
+      "price": 5.99
     },
     {
-      "title": "salpicão",
-      "price": 10,
-      "isEditing": false,
-      "id": 16
+      "id": 5,
+      "title": "Pêra",
+      "price": 2.79
     },
     {
-      "title": "marmelo",
-      "price": 10,
-      "isEditing": false,
-      "id": 17
+      "id": 6,
+      "title": "Melancia",
+      "price": 6.99
     },
     {
-      "title": "ta barato",
-      "price": 10,
-      "isEditing": false,
-      "id": 18
+      "id": 7,
+      "title": "Kiwi",
+      "price": 3.49
     },
     {
-      "title": "Vaquejada",
-      "price": 10,
-      "isEditing": false,
-      "id": 19
+      "id": 8,
+      "title": "Manga",
+      "price": 4.29
     },
     {
-      "title": "",
-      "price": 10,
-      "isEditing": false,
-      "id": 20
+      "id": 9,
+      "title": "Cereja",
+      "price": 7.99
     },
     {
-      "title": "banana",
-      "price": 10,
-      "isEditing": false,
-      "id": 21
+      "id": 10,
+      "title": "Abacate",
+      "price": 5.79
     },
     {
-      "title": "",
-      "price": 10,
-      "isEditing": false,
-      "id": 22
+      "id": 11,
+      "title": "Laranja",
+      "price": 1.69
     },
     {
-      "title": "",
-      "price": 10,
-      "isEditing": false,
-      "id": 23
+      "id": 12,
+      "title": "Limão",
+      "price": 1.29
     },
     {
-      "title": "",
-      "price": 10,
-      "isEditing": false,
-      "id": 24
-    },
-    {
-      "title": "",
-      "price": 10,
-      "isEditing": false,
-      "id": 25
-    },
-    {
-      "title": "açúcar",
-      "price": 10,
-      "isEditing": false,
-      "id": 26
-    },
-    {
-      "title": "",
-      "price": 10,
-      "isEditing": false,
-      "id": 27
-    },
-    {
-      "title": "computador",
-      "price": 10,
-      "isEditing": false,
-      "id": 28
-    },
-    {
-      "title": "banana",
-      "price": 10,
-      "isEditing": false,
-      "id": 29
+      "id": 13,
+      "title": "Goiaba",
+      "price": 3.89
     }
   ]
 }

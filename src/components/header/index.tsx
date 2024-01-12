@@ -63,7 +63,7 @@ export function Header() {
           as={Link}
         >
           <Badge color="primary" content={products.length} shape="circle">
-            <BsCart3 size={30} />
+            <BsCart3 size={26} />
           </Badge>
         </Button>
       </NavbarContent>
