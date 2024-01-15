@@ -23,7 +23,9 @@ export default function Home() {
       // console.log("Success:", response);
     } catch (error) {
       console.log("Error:", error);
-      alert("Ocorreu um erro ao tentar se conectar com o servidor");
+      alert(
+        "Ocorreu um erro ao tentar se conectar com o servidor.\nExecute o seguinte comando em seu terminal:\n\nnpm run server"
+      );
     } finally {
       setLoading(false);
     }

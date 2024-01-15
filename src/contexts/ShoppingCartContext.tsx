@@ -24,7 +24,7 @@ interface ShoppingCartProviderProps {
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   const [products, dispatch] = useReducer(
     shoppingCartReducer,
-    getDataFromLocalStorage("products")
+    getDataFromLocalStorage("products") ?? []
   );
 
   useEffect(() => {

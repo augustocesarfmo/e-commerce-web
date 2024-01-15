@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "server": "json-server -p 3001 --watch --host 0.0.0.0 ./server/db.json",
+    "server": "npx json-server -p 3001 --watch --host 0.0.0.0 ./server/db.json",
     "lint": "next lint"
   },
   "dependencies": {
