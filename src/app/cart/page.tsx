@@ -13,7 +13,7 @@ export default function ProductsPage() {
   const dispatch = useShoppingCartDispatch();
 
   return (
-    <>
+    <div>
       <h2 className="text-2xl pb-4">Meu carrinho</h2>
       <ul className="grid grid-cols-[repeat(auto-fill,min(200px))] justify-between gap-5">
         {products.map((item) => (
@@ -59,6 +59,6 @@ export default function ProductsPage() {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }

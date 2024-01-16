@@ -23,23 +23,21 @@ export function Header() {
 
   return (
     <Navbar position="static" isBordered>
-      <NavbarContent justify="start">
-        <Button
-          href="/"
-          isIconOnly
-          className="bg-transparent w-full h-full"
-          radius="none"
-          as={Link}
-        >
-          <NavbarBrand>
-            <p className="hidden sm:block font-bold text-inherit">
-              LOJA VIRTUAL
-            </p>
-          </NavbarBrand>
-        </Button>
-      </NavbarContent>
+      <Button
+        href="/"
+        className="bg-transparent h-full px-0 lg:px-unit-4"
+        radius="none"
+        as={Link}
+      >
+        <NavbarBrand>
+          <p className="font-bold text-inherit">LOJA VIRTUAL</p>
+        </NavbarBrand>
+      </Button>
 
-      <NavbarContent className="flex gap-4 w-full mx-12" justify="center">
+      <NavbarContent
+        className="hidden lg:flex gap-4 w-full mx-12"
+        justify="center"
+      >
         <Input
           classNames={{
             mainWrapper: "h-full",
