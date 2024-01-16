@@ -1,0 +1,74 @@
+{
+  "produtos": [
+    {
+      "id": 0,
+      "title": "Maçã",
+      "price": 2.49
+    },
+    {
+      "id": 1,
+      "title": "Banana",
+      "price": 1.99
+    },
+    {
+      "id": 2,
+      "title": "Morango",
+      "price": 3.99
+    },
+    {
+      "id": 3,
+      "title": "Uva",
+      "price": 4.49
+    },
+    {
+      "id": 4,
+      "title": "Abacaxi",
+      "price": 5.99
+    },
+    {
+      "id": 5,
+      "title": "Pêra",
+      "price": 2.79
+    },
+    {
+      "id": 6,
+      "title": "Melancia",
+      "price": 6.99
+    },
+    {
+      "id": 7,
+      "title": "Kiwi",
+      "price": 3.49
+    },
+    {
+      "id": 8,
+      "title": "Manga",
+      "price": 4.29
+    },
+    {
+      "id": 9,
+      "title": "Cereja",
+      "price": 7.99
+    },
+    {
+      "id": 10,
+      "title": "Abacate",
+      "price": 5.79
+    },
+    {
+      "id": 11,
+      "title": "Laranja",
+      "price": 1.69
+    },
+    {
+      "id": 12,
+      "title": "Limão",
+      "price": 1.29
+    },
+    {
+      "id": 13,
+      "title": "Goiaba",
+      "price": 3.89
+    }
+  ]
+}
