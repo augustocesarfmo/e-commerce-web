@@ -25,7 +25,7 @@ export function Header() {
     <Navbar position="static" isBordered>
       <Button
         href="/"
-        className="bg-transparent h-full px-0 lg:px-unit-5 bg-red-500"
+        className="bg-transparent h-full px-0 lg:px-unit-5"
         radius="none"
         as={Link}
       >
