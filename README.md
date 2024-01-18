@@ -1,6 +1,6 @@
 # E-commerce web
 
-Este projeto consiste numa versão online do clássico jogo da forca. Foi implementado com JavaScript e HTML DOM para possibilitar a interação do usuário com a interface. O projeto também incluiu eventos de teclado via função `addEventListener("keydown")` para melhorar a usabilidade. Outros conceitos envolvidos neste projeto foram: a) Tags semânticas HTML; b) CSS Grid; c) CSS Flexbox; d) Media Queries para garantir responsividade.
+Este é um projeto de loja virtual desenvolvido com Next.js. Utiliza uma API REST para buscar e apresentar os produtos na interface. Os itens selecionados são armazenados localmente no localStorage, acessíveis pelo ícone do "carrinho de compras". Recursos como <b>useContext</b> e <b>useReducer</b> foram implementados para aprimorar a experiência do usuário e melhorar a modularização da estrutura do código do projeto.
 
 ## 👀 Demo
 

@@ -45,7 +45,7 @@ export function Header() {
             inputWrapper:
               "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
           }}
-          placeholder="Type to search..."
+          placeholder="Digite para pesquisar..."
           size="sm"
           startContent={<BsSearch size={16} />}
           type="search"
