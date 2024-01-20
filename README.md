@@ -32,6 +32,9 @@ $ git clone https://github.com/augustocesarfmo/e-commerce-web.git
 # Acessando o repositório
 $ cd e-commerce-web
 
+# Instalando as dependências
+$ npm install
+
 # Executando o app
 $ npm run dev
 ```
